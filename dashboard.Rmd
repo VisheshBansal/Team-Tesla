@@ -2,6 +2,8 @@
 title: "Team Tesla"
 output:
   flexdashboard::flex_dashboard:
+    orientation: columns
+    horizontal_layout: fill
     css: styles.css
     theme:
       version: 5
@@ -10,11 +12,6 @@ output:
         google: Prompt
       heading_font:
         google: Sen
-      code_font:
-        google: 
-          # arguments to sass::font_google() 
-          family: JetBrains Mono
-          local: false
 ---
 ---
 
@@ -23,10 +20,83 @@ library(flexdashboard)
 thematic::thematic_rmd(font = "auto")
 ```
 
-Column {data-width=650}
+Table{data-icon="fa-table"}
+===
+Row
 -----------------------------------------------------------------------
 
-### Chart A
+### Cars Sold
+
+```{r}
+df<-read.csv("ElectricCarData_Clean.csv")
+valueBox(nrow(df), icon = "fa-car")
+```
+
+### Total Sales in $
+
+```{r}
+valueBox(sum(df[, 'PriceEuro'], na.rm = TRUE), icon = "fa-money", color="#85bb65")
+```
+
+### Brands
+
+```{r}
+valueBox(length(unique(df$Brand)), icon = "fa-tag")
+```
+
+### Models
+
+```{r}
+valueBox(length(unique(df$Model)), icon = "fa-cubes")
+```
+
+### Mean Price of Car (in $)
+
+```{r}
+valueBox(trunc(mean(df$PriceEuro)), icon = "fa-dollar")
+```
+
+### Mean Range (in Kms)
+
+```{r}
+valueBox(trunc(mean(df$Range_Km)), icon = "fas fa-car-battery", color="#f8c294")
+```
+
+Column  {data-width=1200}
+-----------------------------------------------------------------------
+### Data
+
+```{r}
+library(DT)
+# Show table using DT package
+df<-read.csv("ElectricCarData_Clean.csv")
+DT::datatable(df,options = list(),fillContainer = FALSE)
+```
+
+Market Trends{data-icon="fa-bar-chart"}
+===
+Column {data-width=600}
+-----------------------------------------------------------------------
+
+### Cars by Features
+
+```{r}
+library(plotly)
+
+data<-read.csv("ElectricCarData_Clean.csv")
+fig <- plot_ly(data,x =~Brand,y =~Seats,z =~Segment,color=~Brand,text = ~paste('Brand:', Brand, '<br>Seats:', Seats, '<br>Segment:', Segment))
+fig <- fig %>% add_markers()
+fig <- fig %>% layout(title='Brands vs. Segment vs. Seats',scene = list(xaxis = list(title = 'Brand'),
+                                   yaxis = list(title = 'Seats'),
+                                   zaxis = list(title = 'Segment')))
+
+fig
+```
+
+Column {data-width=400}
+-----------------------------------------------------------------------
+
+### Market Domination by Company
 
 ```{r}
 library(plotly)
@@ -39,24 +109,18 @@ fig <- plot_ly(data, labels =~Brand, values = ~PriceEuro, type = 'pie',
                insidetextfont = list(color = '#FFFFFF'),
                marker = list(colors = colors,line = list(color = '#FFFFFF', width = 1), pull=1.5),
                showlegend = FALSE)
-fig <- fig %>% layout( title='Market Price in Euros',
+fig <- fig %>% layout( title='% by Brand',
                        xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
                        yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE))
 fig
 ```
 
-Column {data-width=350}
------------------------------------------------------------------------
-
-### Chart B
+### Rapid Charging
 
 ```{r}
+fig <- plot_ly(df, x=~RapidCharge,y = ~PriceEuro,color =~RapidCharge, type = "box", boxpoints = "all", jitter = 0.3,
+               pointpos = -1.8)
 
-```
-
-### Chart C
-
-```{r}
-
+fig
 ```
 

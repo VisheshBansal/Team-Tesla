@@ -1,4 +1,35 @@
+@import url(https://use.fontawesome.com/releases/v5.7.2/css/all.css);
 body {
     background-color: #101010;
-    color: #FDF7F7;
+    color: #130120;
+}
+
+::-webkit-scrollbar {
+    width: 0.3rem;
+    background: #121212;
+}
+
+
+/* Track */
+
+ ::-webkit-scrollbar-track {
+    background: #121212;
+    border-radius: 0.3rem;
+    z-index: -99;
+}
+
+
+/* Handle */
+
+ ::-webkit-scrollbar-thumb {
+    background: #3ADAC6;
+    border-radius: 0.3rem;
+}
+
+
+/* Handle on hover */
+
+ ::-webkit-scrollbar-thumb:hover {
+    background: #2d916f;
+    visibility: visible;
 }
