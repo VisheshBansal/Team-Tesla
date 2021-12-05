@@ -1,7 +1,7 @@
 library(ggplot2)
 library(plotly)
 library(reshape2)
-d <-read.csv("/Users/NeerajChauhan/Downloads/DV project.csv", header=TRUE)
+d <-read.csv("ElectricCarData_Clean.csv", header=TRUE)
 
 
 z<-d[1:30,c(14,5,6,7,4)]

@@ -1,6 +1,5 @@
 library(plotly)
 
-setwd("E:/")
 data<-read.csv("ElectricCarData_Clean.csv")
 fig <- plot_ly(data,x =~Brand,y =~Seats,z =~Segment,color=~Brand,text = ~paste('Brand:', Brand, '<br>Seats:', Seats, '<br>Segment:', Segment))
 fig <- fig %>% add_markers()
