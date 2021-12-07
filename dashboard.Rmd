@@ -53,7 +53,7 @@ valueBox(length(unique(df$Model)), icon = "fa-cubes")
 ### Mean Price of Car (in $)
 
 ```{r}
-valueBox(trunc(mean(df$PriceEuro)), icon = "fa-dollar")
+valueBox(trunc(mean(df$PriceEuro)), icon = "fa-dollar",color = "green")
 ```
 
 ### Mean Range (in Kms)
@@ -84,7 +84,7 @@ Column {data-width=600}
 library(plotly)
 
 data<-read.csv("ElectricCarData_Clean.csv")
-fig <- plot_ly(data,x =~Brand,y =~Seats,z =~Segment,color=~Brand,text = ~paste('Brand:', Brand, '<br>Seats:', Seats, '<br>Segment:', Segment))
+fig <- plot_ly(data,x =~Brand,y =~Seats,z =~Segment,color=~Brand,hovertemplate = ~paste('Brand:', Brand, '<br>Seats:', Seats, '<br>Segment:', Segment,"<br><b>Model</b>: ",Model))
 fig <- fig %>% add_markers()
 fig <- fig %>% layout(title='Brands vs. Segment vs. Seats',scene = list(xaxis = list(title = 'Brand'),
                                    yaxis = list(title = 'Seats'),
@@ -124,57 +124,59 @@ fig <- plot_ly(df, x=~RapidCharge,y = ~PriceEuro,color =~RapidCharge, type = "bo
 fig
 ```
 
-Graphs{data-icon="fa-bar-chart"}
+Feature Comparsion{data-icon="fa-car"}
 ===
-Column {data-width=600}
+Column {data-width=500}
 -----------------------------------------------------------------------
 
-### fastest charging
+### Fastest Charging/KmH
 
 ```{r}
-fig <- plot_ly(df, x = ~Brand, y = ~FastCharge_KmH, type = 'scatter')
+fig <- plot_ly(df, x = ~Brand, y = ~FastCharge_KmH, type = 'scatter',text = ~paste("Model: ",Model))
 
 fig
 ```
 
-Column {data-width=400}
+Column {data-width=500}
 -----------------------------------------------------------------------
 
-### fastest acc
+### Fastest Acceleration
 
 ```{r}
 fig <- plot_ly(
   df, x = ~Brand, y = ~AccelSec,
-  color = ~AccelSec)
+  color = ~AccelSec,hovertemplate = ~paste("<b>Model</b>: ",Model,"<br><b>Acceleration/Sec:</b>",AccelSec))
 
 fig
 ```
 
-### highest price
+### Highest Price
 ```{r}
-fig <- plot_ly(df, x = ~Brand, y = ~PriceEuro, type = 'scatter', mode = 'markers')
+fig <- plot_ly(df, x = ~Brand, y = ~PriceEuro, type = 'scatter', mode = 'markers',color='Inferno',
+  # Hover text:
+  text = ~paste("Model: ",Model))
                
 fig
 ```
 
-Graphs{data-icon="fa-bar-chart"}
+Range vs Speed{data-icon="fa-bolt"}
 ===
 Column {data-width=600}
 -----------------------------------------------------------------------
-### highest range km
+### Highest Range/km
 ```{r}
 fig <- plot_ly(
   df, x = ~Brand, y = ~Range_Km, type='scatter',mode = 'markers',
   # Hover text:
-  text = ~paste("RapidCharge: ",RapidCharge, '<br>Price: $',PriceEuro),
+  text = ~paste("<b>Model</b>: ",Model,"<br>RapidCharge: ",RapidCharge, '<br>Price: $',PriceEuro),
   color = ~Brand, size = ~Seats
 )
 fig
 ```
 
-### highest speed
+### Highest Speed
 ```{r}
-fig <- plot_ly(df, x = ~Brand, y = ~TopSpeed_KmH, color = ~TopSpeed_KmH, size = ~TopSpeed_KmH)
+fig <- plot_ly(df, x = ~Brand, y = ~TopSpeed_KmH, color = ~TopSpeed_KmH, size = ~TopSpeed_KmH,hovertemplate = ~paste("<b>Model</b>: ",Model,"<br>TopSpeed_KmH: ",TopSpeed_KmH))
 
 fig
 ```

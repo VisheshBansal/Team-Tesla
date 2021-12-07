@@ -1,6 +1,6 @@
 @import url(https://use.fontawesome.com/releases/v5.7.2/css/all.css);
 body {
-    background-color: #101010;
+    background-image: url("img/bg.png");
     color: #130120;
 }
 
@@ -32,4 +32,8 @@ body {
  ::-webkit-scrollbar-thumb:hover {
     background: #2d916f;
     visibility: visible;
+}
+
+#mean-price-of-car-in {
+    color: #fefefe;
 }
