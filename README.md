@@ -1,4 +1,4 @@
-<p>	<h1 align="center"> Team Tesla </h1>
+<p>	<h1 align="center"> Team Tesla 🏎️🔋</h1>
 	<h3 align="center"> Understanding Sales of Electric Vehicles </h3>
 </p>
 
@@ -7,6 +7,13 @@
 ## Dependencies
  - Flex Dashboard
  - R Language
+ 
+ - R Packages:
+   - plotly
+   - Tidyverse
+   - ggplot2
+   - reshape2
+   - DT
 
 
 ## Running
@@ -21,8 +28,15 @@ cd Team-Tesla
 Directions to execute
 
 ```R
-Add commands
+- Open in RStudio
+- Click on Knit
 ```
+### Screenshots
+
+<p align="center">
+<img src = "img/Homepage.png" width="500" alt="Screenshot" />
+<img src = "img/ss2.png" width="500" alt="Screenshot2" />
+</p>
 
 ## Contributors
 

@@ -20,7 +20,7 @@ library(flexdashboard)
 thematic::thematic_rmd(font = "auto")
 ```
 
-Table{data-icon="fa-table"}
+Overview{data-icon="fa-table"}
 ===
 Row
 -----------------------------------------------------------------------
@@ -75,7 +75,7 @@ DT::datatable(df,options = list(),fillContainer = FALSE)
 
 Market Trends{data-icon="fa-bar-chart"}
 ===
-Column {data-width=600}
+Column {data-width=1000}
 -----------------------------------------------------------------------
 
 ### Cars by Features
@@ -93,7 +93,7 @@ fig <- fig %>% layout(title='Brands vs. Segment vs. Seats',scene = list(xaxis = 
 fig
 ```
 
-Column {data-width=400}
+Column {data-width=600}
 -----------------------------------------------------------------------
 
 ### Market Domination by Company
@@ -109,7 +109,7 @@ fig <- plot_ly(data, labels =~Brand, values = ~PriceEuro, type = 'pie',
                insidetextfont = list(color = '#FFFFFF'),
                marker = list(colors = colors,line = list(color = '#FFFFFF', width = 1), pull=1.5),
                showlegend = FALSE)
-fig <- fig %>% layout( title='% by Brand',
+fig <- fig %>% layout( title='% Breakdown by Brand (in $)',
                        xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
                        yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE))
 fig
@@ -124,7 +124,20 @@ fig <- plot_ly(df, x=~RapidCharge,y = ~PriceEuro,color =~RapidCharge, type = "bo
 fig
 ```
 
-Feature Comparsion{data-icon="fa-car"}
+### Heatmap
+
+```{r}
+z<-df[,c(5,6,4,14)]
+cormat <- round(cor(z),4)
+fig <- plot_ly(
+  x = c("range", "efficiency", "top speed","price"),
+  y = c("range", "efficiency", "top speed","price"),
+  z = cormat, type = "heatmap")
+
+fig
+```
+
+Feature Comparison{data-icon="fa-car"}
 ===
 Column {data-width=500}
 -----------------------------------------------------------------------
